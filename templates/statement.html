@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Customer Statement - {{ customer.name }}</h1>
+
+<div class="grid-3">
+  <div class="card"><div class="card-title">Opening</div><div class="card-value">{{ '%.2f'|format(customer.opening_balance) }}</div></div>
+  <div class="card"><div class="card-title">Current Balance</div><div class="card-value">{{ '%.2f'|format(balance) }}</div></div>
+  <div class="card"><div class="card-title">Phone</div><div class="card-value">{{ customer.phone }}</div></div>
+  </div>
+
+<h2>Invoices (Credit)</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Date</th>
+      <th>Total</th>
+      <th>View</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for inv in invoices %}
+    <tr>
+      <td>{{ inv.id }}</td>
+      <td>{{ inv.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+      <td>{{ '%.2f'|format(inv.total_amount) }}</td>
+      <td><a href="{{ url_for('invoice_view_urdu', invoice_id=inv.id) }}">Urdu</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Payments</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>Method</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in payments %}
+    <tr>
+      <td>{{ p.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+      <td>{{ '%.2f'|format(p.amount) }}</td>
+      <td>{{ p.method }}</td>
+      <td>{{ p.notes }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>رسید</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/urdu.css') }}">
+</head>
+<body>
+  <div class="invoice">
+    <div class="header">
+      <h1>رسید</h1>
+      <div class="meta">
+        <div>رسید نمبر: {{ invoice.id|urdu }}</div>
+        <div>تاریخ: {{ invoice.created_at.strftime('%Y-%m-%d %H:%M')|urdu }}</div>
+      </div>
+    </div>
+
+    <div class="party">
+      <div>گاہک: {{ invoice.customer.name if invoice.customer else 'واَک اِن' }}</div>
+      {% if invoice.customer and invoice.customer.phone %}
+      <div>فون: {{ invoice.customer.phone|urdu }}</div>
+      {% endif %}
+    </div>
+
+    <table class="items">
+      <thead>
+        <tr>
+          <th>تفصیل</th>
+          <th>مقدار</th>
+          <th>ریٹ</th>
+          <th>رقم</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for it in invoice.items %}
+        <tr>
+          <td>{{ it.product.name if it.product else it.description }}</td>
+          <td>{{ ('%.2f'|format(it.quantity))|urdu }}</td>
+          <td>{{ ('%.2f'|format(it.unit_price))|urdu }}</td>
+          <td>{{ ('%.2f'|format(it.line_total))|urdu }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">کل رقم</td>
+          <td>{{ ('%.2f'|format(invoice.total_amount))|urdu }}</td>
+        </tr>
+        <tr>
+          <td colspan="3">قسم</td>
+          <td>{{ 'ادھار' if invoice.is_credit else 'نقد' }}</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="print-actions">
+      <button onclick="window.print()">پرنٹ</button>
+    </div>
+  </div>
+</body>
+</html>
+
