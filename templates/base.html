@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Billing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="topbar">
+        <div class="container">
+            <a href="{{ url_for('dashboard') }}" class="brand">Billing</a>
+            <div class="nav-links">
+                <a href="{{ url_for('customers_list') }}">Customers</a>
+                <a href="{{ url_for('products_list') }}">Products</a>
+                <a href="{{ url_for('payments_list') }}">Payments</a>
+                <a href="{{ url_for('invoice_new') }}" class="btn">New Invoice</a>
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash">
+            {% for category, message in messages %}
+            <div class="flash-item {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
+
