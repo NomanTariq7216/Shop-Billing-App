@@ -1,0 +1,16 @@
+# Shop Billing System Requirements
+# Compatible with Python 3.6+
+
+# No external dependencies required!
+# This application uses only Python standard library modules:
+# - tkinter (GUI - comes pre-installed with Python)
+# - sqlite3 (Database - comes pre-installed with Python)
+# - datetime (comes pre-installed with Python)
+
+# For Windows users:
+# Python 3.x from python.org already includes tkinter
+
+# For Linux users, install tkinter if not present:
+# Ubuntu/Debian: sudo apt-get install python3-tk
+# Fedora: sudo dnf install python3-tkinter
+# Arch: sudo pacman -S tk
